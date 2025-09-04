@@ -141,6 +141,22 @@ function cmd.qot()
     end)
 end
 
+function cmd.study_plan_detail()
+    require("leetcode.utils").auth_guard()
+
+    local problems = require("leetcode.api.question")
+    problems.study_plan_detail(function (slugs,err)
+       if err then
+        return log.err(err)
+       end
+    local p = require("leetcode.cache.problemlist").get_by_title_slugs(slugs)
+    local picker = require("leetcode.picker")
+    picker.question(p)
+ 
+    end)
+   
+end
+
 function cmd.random_question(opts)
     require("leetcode.utils").auth_guard()
 
@@ -633,6 +649,9 @@ cmd.commands = {
     list = {
         cmd.problems,
         _args = arguments.list,
+    },
+    js_study = {
+        cmd.study_plan_detail,
     },
     random = {
         cmd.random_question,
