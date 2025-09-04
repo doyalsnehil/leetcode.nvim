@@ -144,7 +144,7 @@ end
 function cmd.study_plan_detail()
     require("leetcode.utils").auth_guard()
 
-    local problems = require("leetcode.api.question")
+    local problems = require("leetcode.api.problems")
     problems.study_plan_detail(function (slugs,err)
        if err then
         return log.err(err)
